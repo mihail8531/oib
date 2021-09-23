@@ -1,0 +1,47 @@
+<LabWidget>:
+    id: lab_widget
+    orientation: "vertical"
+    Label:
+        text: "Генератор паролей"
+        size_hint: [1, 0.1]
+        font_size: 20
+    AnchorLayout:
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: [0.6, 0.7]
+            spacing: 50
+            BoxLayout:
+                size_hint: [1, 0.15]
+                spacing: 10
+                Label:
+                    text: "Идентификатор:"
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                TextInput:
+                    id: ind_textbox
+                    multiline: False
+            BoxLayout:
+                size_hint: [1, 0.15]
+                spacing: 10
+                Label:
+                    text: "Сгенерированный пароль:"
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                TextInput:
+                    id: res_pass_textbox
+                    text: ""
+                    multiline: False
+                    readonly: True
+            AnchorLayout:
+                Button:
+                    id: pass_gen_button
+                    size_hint: [0.5, 0.5]
+                    text: "Сгенерировать пароль"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        res_pass_textbox.text = root.get_pass(ind_textbox.text)
