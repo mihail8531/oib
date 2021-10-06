@@ -19,5 +19,3 @@ class PassGen:
         return res
 
 
-if __name__ == "__main__":
-    print(PassGen.get_rand_pass_12_var("12345"))
