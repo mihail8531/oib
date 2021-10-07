@@ -1,0 +1,588 @@
+<StartScreen>:
+    orientation: "vertical"
+    Label:
+        text: "Лабораторные работы по ОИБ"
+        size_hint: [1, 0.2]
+        font_size: 20
+    AnchorLayout:
+        Button:
+            size_hint: [0.9, 0.5]
+            text: "Лабораторная 1"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_lab1button_release()
+    AnchorLayout:
+        Button:
+            size_hint: [0.9, 0.5]
+            text: "Лабораторная 2"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_lab2button_release()
+<Lab1Screen>:
+    orientation: "vertical"
+    Label:
+        text: "Генератор паролей"
+        size_hint: [1, 0.1]
+        font_size: 20
+    AnchorLayout:
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: [0.6, 0.7]
+            spacing: 50
+            BoxLayout:
+                size_hint: [1, 0.15]
+                spacing: 10
+                Label:
+                    text: "Идентификатор:"
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                TextInput:
+                    id: ind_textbox
+                    multiline: False
+            BoxLayout:
+                size_hint: [1, 0.15]
+                spacing: 10
+                Label:
+                    text: "Сгенерированный пароль:"
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                TextInput:
+                    id: res_pass_textbox
+                    text: ""
+                    multiline: False
+                    readonly: True
+            AnchorLayout:
+                Button:
+                    size_hint: [0.5, 0.5]
+                    text: "Сгенерировать пароль"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        res_pass_textbox.text = root.get_pass(ind_textbox.text)
+    AnchorLayout:
+        size_hint: [1, 0.15]
+        anchor_y: "top"
+        Button:
+            size_hint: [0.2, 0.9]
+            text: "Назад"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_back_button_release()
+<Lab2Screen>:
+    orientation: "vertical"
+    Label:
+        text: "Авторизация"
+        size_hint: [1, 0.2]
+        font_size: 20
+    BoxLayout:
+        size_hint: [1, 0.5]
+        orientation: "vertical"
+        AnchorLayout:
+            size_hint: [1, 0.9]
+            anchor_y: "top"
+            Button:
+                size_hint: [0.5, 0.5]
+                text: "Войти"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_login_button_release()
+        AnchorLayout:
+            size_hint: [1, 0.9]
+            anchor_y: "top"
+            Button:
+                size_hint: [0.5, 0.5]
+                text: "Зарегистрироваться"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_registration_button_release()
+    AnchorLayout:
+        size_hint: [1, 0.3]
+        anchor_y: "top"
+        Button:
+            size_hint: [0.4, 0.3]
+            text: "Назад"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_back_button_release()
+<Lab2Login>:
+    orientation: "vertical"
+    Label:
+        text: "Авторизация"
+        size_hint: [1, 0.2]
+        font_size: 20
+    BoxLayout:
+        size_hint: [1, 0.5]
+        orientation: "vertical"
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 0.3]
+                spacing: 10
+                Label:
+                    text: "Логин:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 1]
+                        id: login_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 0.3]
+                spacing: 10
+                Label:
+                    text: "Пароль:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 1]
+                        id: password_textbox
+                        multiline: False
+        AnchorLayout:
+            size_hint: [1, 0.9]
+            anchor_y: "top"
+            Button:
+                size_hint: [0.5, 0.5]
+                text: "Войти"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_login_button_release(login_textbox.text, password_textbox.text)
+        AnchorLayout:
+            size_hint: [1, 0.9]
+            anchor_y: "center"
+            Button:
+                size_hint: [0.1, 0.5]
+                text: "Назад"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_back_button_release()
+<ErrorPopup>:
+    title: "Ошибка"
+    size_hint: [0.5, 0.5]
+    auto_dismiss: False
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: root.message
+        AnchorLayout:
+            Button:
+                size_hint: [0.5, 0.3]
+                text: "Закрыть"
+                on_release: root.dismiss()
+<MessagePopup>:
+    title: "Информация"
+    size_hint: [0.5, 0.5]
+    auto_dismiss: False
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: root.message
+        AnchorLayout:
+            Button:
+                size_hint: [0.5, 0.3]
+                text: "Закрыть"
+                on_release: root.dismiss()
+<Lab2Registration>:
+    orientation: "vertical"
+    Label:
+        text: "Регистрация"
+        size_hint: [1, 0.1]
+        font_size: 20
+    BoxLayout:
+        #size_hint: [1, 0.5]
+        orientation: "vertical"
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Логин:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: username_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Пароль:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: password_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Фамилия:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: lastname_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Имя:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: name_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Отчество:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: patronymic_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Дата рождения:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: birthday_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Место рождения:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: place_of_birth_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Телефон:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: phone_number_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            BoxLayout:
+                size_hint: [0.5, 0.8]
+                spacing: 15
+                Button:
+                    size_hint: [0.2, 0.7]
+                    text: "Назад"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_back_button_release()
+                Button:
+                    size_hint: [0.2, 0.7]
+                    text: "Зарегистрироваться"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_register_button_release()
+<Lab2Main>:
+    orientation: "vertical"
+    Video:
+        id: video
+        source: "video.mp4"
+        state: "pause"
+        options: {'eos': 'loop'}
+        allow_stretch: True
+    AnchorLayout:
+        anchor_y: "top"
+        BoxLayout:
+            size_hint: [0.5, 0.8]
+            spacing: 15
+            Button:
+                size_hint: [0.2, 0.7]
+                text: "Выйти"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_logout_button_release()
+            Button:
+                size_hint: [0.2, 0.7]
+                text: "Изменить данные"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_change_button_release()
+<Lab2Change>:
+    orientation: "vertical"
+    Label:
+        text: "Изменить данные"
+        size_hint: [1, 0.1]
+        font_size: 20
+    BoxLayout:
+        #size_hint: [1, 0.5]
+        orientation: "vertical"
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Пароль:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: password_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Фамилия:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: lastname_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Имя:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: name_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Отчество:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: patronymic_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Дата рождения:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: birthday_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Место рождения:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: place_of_birth_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            anchor_x: "left"
+            BoxLayout:
+                size_hint: [0.9, 1]
+                spacing: 10
+                Label:
+                    text: "Телефон:"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    TextInput:
+                        size_hint: [0.6, 0.5]
+                        id: phone_number_textbox
+                        multiline: False
+        AnchorLayout:
+            anchor_y: "top"
+            BoxLayout:
+                size_hint: [0.5, 0.8]
+                spacing: 15
+                Button:
+                    size_hint: [0.2, 0.7]
+                    text: "Назад"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_back_button_release()
+                Button:
+                    size_hint: [0.2, 0.7]
+                    text: "Изменить данные"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_change_button_release()

@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
@@ -9,6 +10,7 @@ from enum import Enum
 from auth import AppAuth
 from exeptions import *
 
+#Builder.load_file("./lab.kv") #раскомментировать при билде
 
 class ScrnType(Enum):
     START_SCREEN = 0
