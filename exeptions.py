@@ -40,3 +40,16 @@ class InvalidFullName(RegistrationException):
 
     def __init__(self):
         super().__init__(InvalidFullName._message)
+
+
+class InvalidPasswordChange(RegistrationException):
+    _message = "Пароль не может совпадать с отчеством"
+
+    def __init__(self):
+        super().__init__(InvalidPasswordChange._message)
+
+class NotLoggedInExcpetion(RegistrationException):
+    _message = "Вы не можете поменять данные, так как не вошли"
+
+    def __init__(self):
+        super().__init__(NotLoggedInExcpetion._message)

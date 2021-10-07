@@ -14,8 +14,9 @@ class AppAuth:
 
     def __init__(self):
         self.db = DB()
+        self.current_login = None
 
-    def login(self, username: str, password: str) -> bool:
+    def try_login(self, username: str, password: str) -> bool:
         if not self.db.is_user_exists(username):
             return False
         return self.db.get_user_data(username).password_hash == self._get_password_hash(password)
@@ -25,7 +26,6 @@ class AppAuth:
         if not self._is_valid_password(password):
             raise InvalidPassword()
         kwargs["password_hash"] = self._get_password_hash(password)
-        print(kwargs)
         user_data = UserData(**kwargs)
         if not self._is_valid_username(user_data.username):
             raise InvalidUsername()
@@ -37,6 +37,31 @@ class AppAuth:
             raise InvalidPhoneNumber()
 
         self.db.add_user(user_data)
+
+    def get_logged_data(self):
+        if self.current_login is None:
+            raise NotLoggedInExcpetion()
+        return self.db.get_user_data(self.current_login)
+
+    def try_change_userdata(self, **kwargs):
+        if self.current_login is None:
+            raise NotLoggedInExcpetion()
+        else:
+            kwargs["username"] = self.current_login
+            password = kwargs.get("password")
+            if not self._is_valid_password(password):
+                raise InvalidPassword()
+            kwargs["password_hash"] = self._get_password_hash(password)
+            user_data = UserData(**kwargs)
+            if not self._is_valid_username(user_data.username):
+                raise InvalidUsername()
+            if not self._is_valid_full_name(user_data.lastname, user_data.name, user_data.patronymic):
+                raise InvalidFullName()
+            if not self._is_valid_phone_number(user_data.phone_number):
+                raise InvalidPhoneNumber()
+            if not self._is_valid_password(password, user_data.patronymic):
+                raise InvalidPasswordChange()
+            self.db.update_user_data(user_data)
 
     @staticmethod
     def _get_password_hash(password: str) -> str:
@@ -50,9 +75,11 @@ class AppAuth:
         return not (username is None or len(username) < 3
                     or not self._is_str_contains_only_allowed_chars(username, self._username_allowed_chars))
 
-    def _is_valid_password(self, password: str) -> bool:
-        return not (password is None or len(password) < 9
+    def _is_valid_password(self, password: str, patronymic: str = None) -> bool:
+
+        res = not (password is None or len(password) < 9
                     or not self._is_str_contains_only_allowed_chars(password, self._password_allowed_chars))
+        return res if patronymic is None or not res else patronymic != password
 
     def _is_valid_phone_number(self, number: str) -> bool:
         if len(number) < 11:
