@@ -3,14 +3,15 @@ from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
-
+import ffpyplayer
 from db_manager import UserData
 from pass_gen import PassGen
 from enum import Enum
 from auth import AppAuth
 from exeptions import *
 
-#Builder.load_file("./lab.kv") #раскомментировать при билде
+
+# Builder.load_file("./lab.kv") #раскомментировать при билде
 
 class ScrnType(Enum):
     START_SCREEN = 0
@@ -32,6 +33,10 @@ class StartScreen(BoxLayout):
     def on_lab2button_release():
         screens_manager.switch_screen(ScrnType.LAB2_SCREEN)
 
+    @staticmethod
+    def on_lab3button_release():
+        screens_manager.switch_screen(ScrnType.LAB3_SCREEN)
+
 
 class LabScreenWidget(BoxLayout):
     @staticmethod
@@ -42,7 +47,7 @@ class LabScreenWidget(BoxLayout):
 class Lab1Screen(LabScreenWidget):
     @staticmethod
     def get_pass(ind: str):
-        return PassGen.get_rand_pass_12_var(ind)
+        return PassGen.get_rand_pass_lab1(ind)
 
 
 class Lab2Screen(LabScreenWidget):
@@ -148,6 +153,10 @@ class Lab2Main(BoxLayout):
         screens_manager.switch_screen(ScrnType.LAB2_CHANGE).set_user_data()
 
 
+class Lab3Screen(LabScreenWidget):
+    pass
+
+
 class ScreensManager(BoxLayout):
     def __init__(self, **kwargs):
         super(ScreensManager, self).__init__(**kwargs)
@@ -159,6 +168,7 @@ class ScreensManager(BoxLayout):
         self.screens[ScrnType.LAB2_REGISTRATION] = Lab2Registration()
         self.screens[ScrnType.LAB2_MAIN] = Lab2Main()
         self.screens[ScrnType.LAB2_CHANGE] = Lab2Change()
+        self.screens[ScrnType.LAB3_SCREEN] = Lab3Screen()
         # ...
         self.add_widget(self.screens[ScrnType.START_SCREEN])
 
@@ -180,6 +190,7 @@ class LabApp(App):
 
 
 if __name__ == '__main__':
+    print(f"ffpyplayer: {ffpyplayer.version}")
     app_auth = AppAuth()
     screens_manager = ScreensManager()
     LabApp().run()

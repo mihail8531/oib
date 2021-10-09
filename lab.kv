@@ -24,6 +24,16 @@
             valign: "center"
             on_release:
                 root.on_lab2button_release()
+    AnchorLayout:
+        Button:
+            size_hint: [0.9, 0.5]
+            text: "Лабораторная 3"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_lab3button_release()
 <Lab1Screen>:
     orientation: "vertical"
     Label:
@@ -203,6 +213,7 @@
         orientation: "vertical"
         Label:
             text: root.message
+            text_size: self.size
         AnchorLayout:
             Button:
                 size_hint: [0.5, 0.3]
@@ -216,6 +227,7 @@
         orientation: "vertical"
         Label:
             text: root.message
+            text_size: self.size
         AnchorLayout:
             Button:
                 size_hint: [0.5, 0.3]
@@ -586,3 +598,9 @@
                     valign: "center"
                     on_release:
                         root.on_change_button_release()
+<Lab3Screen>:
+    orientation: "vertical"
+    Label:
+        text: "Генерация паролей и количественная оценка стойкости парольной защиты"
+        size_hint: [1, 0.2]
+        font_size: 20

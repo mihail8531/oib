@@ -1,9 +1,14 @@
-class RegistrationException(Exception):
+class LabException(Exception):
     def __init__(self, message: str):
         self.message = message
 
     def __str__(self):
         return self.message
+
+
+class RegistrationException(LabException):
+    def __init__(self, message: str):
+        super().__init__(message)
 
 
 class InvalidUsername(RegistrationException):
@@ -48,8 +53,21 @@ class InvalidPasswordChange(RegistrationException):
     def __init__(self):
         super().__init__(InvalidPasswordChange._message)
 
-class NotLoggedInExcpetion(RegistrationException):
+
+class NotLoggedInException(RegistrationException):
     _message = "Вы не можете поменять данные, так как не вошли"
 
     def __init__(self):
-        super().__init__(NotLoggedInExcpetion._message)
+        super().__init__(NotLoggedInException._message)
+
+
+class PassGeneratorException(LabException):
+    def __init__(self, message: str):
+        super().__init__(message)
+
+
+class InvalidAlphasSetException(PassGeneratorException):
+    _message = "Неправильный набор алфавитов для генерации пароля (должен быть минимум один алфавит)"
+
+    def __init__(self):
+        super().__init__(InvalidAlphasSetException._message)

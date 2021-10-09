@@ -40,12 +40,12 @@ class AppAuth:
 
     def get_logged_data(self):
         if self.current_login is None:
-            raise NotLoggedInExcpetion()
+            raise NotLoggedInException()
         return self.db.get_user_data(self.current_login)
 
     def try_change_userdata(self, **kwargs):
         if self.current_login is None:
-            raise NotLoggedInExcpetion()
+            raise NotLoggedInException()
         else:
             kwargs["username"] = self.current_login
             password = kwargs.get("password")
