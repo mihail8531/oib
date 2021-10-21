@@ -604,3 +604,233 @@
         text: "Генерация паролей и количественная оценка стойкости парольной защиты"
         size_hint: [1, 0.2]
         font_size: 20
+    BoxLayout:
+        orientation: "horizontal"
+        AnchorLayout:
+            BoxLayout:
+                orientation: "vertical"
+                BoxLayout:
+                    Label:
+                        text: "P(Вероятность)"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        FloatInput:
+                            size_hint: [0.6, 0.7]
+                            id: P_textbox
+                            multiline: False
+                            text: "0.0000001"
+                            on_text: root.update_values()
+                BoxLayout:
+                    Label:
+                        text: "V(Скорость перебора) [паролей/день]"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        IntInput:
+                            size_hint: [0.6, 0.7]
+                            id: V_textbox
+                            multiline: False
+                            text: "100"
+                            on_text: root.update_values()
+                BoxLayout:
+                    Label:
+                        text: "T(Срок действия пароля) [дней]"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        IntInput:
+                            size_hint: [0.6, 0.7]
+                            id: T_textbox
+                            multiline: False
+                            text: "10"
+                            on_text: root.update_values()
+                BoxLayout:
+                    Label:
+                        text: "S*(Нижняя граница паролей)"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        TextInput:
+                            size_hint: [0.6, 0.7]
+                            id: S_textbox
+                            multiline: False
+                            readonly: True
+                            text: "10000000000"
+                BoxLayout:
+                    Label:
+                        text: "A(Мощность алфавита)"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        TextInput:
+                            size_hint: [0.6, 0.7]
+                            id: A_textbox
+                            multiline: False
+                            readonly: True
+                            text: "0"
+                BoxLayout:
+                    Label:
+                        text: "L(Длина пароля)"
+                        font_size: 16
+                        halign: "left"
+                        valign: "center"
+                        text_size: self.size
+                    AnchorLayout:
+                        anchor_x: "left"
+                        TextInput:
+                            size_hint: [0.6, 0.7]
+                            id: L_textbox
+                            multiline: False
+                            readonly: True
+                            text: "inf"
+
+        BoxLayout:
+            orientation: "vertical"
+            BoxLayout:
+                Label:
+                    text: "Латинские большие"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: eng_alpha_upper
+                        on_release: root.update_alphas()
+            BoxLayout:
+                Label:
+                    text: "Латинские маленькие"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: eng_alpha
+                        on_release: root.update_alphas()
+            BoxLayout:
+                Label:
+                    text: "Русские большие"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: rus_alpha_upper
+                        on_release: root.update_alphas()
+            BoxLayout:
+                Label:
+                    text: "Русские маленькие"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: rus_alpha
+                        on_release: root.update_alphas()
+
+            BoxLayout:
+                Label:
+                    text: "Символы"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: spec_chars
+                        on_release: root.update_alphas()
+
+            BoxLayout:
+                Label:
+                    text: "Цифры"
+                    font_size: 16
+                    halign: "right"
+                    valign: "center"
+                    text_size: self.size
+                AnchorLayout:
+                    anchor_x: "left"
+                    CheckBox:
+                        id: digits
+                        on_release: root.update_alphas()
+
+
+    BoxLayout:
+        orientation: "vertical"
+        BoxLayout:
+            Label:
+                size_hint: [0.1, 1]
+                text: "Пароль:"
+                font_size: 16
+                halign: "right"
+                valign: "center"
+                text_size: self.size
+            AnchorLayout:
+                anchor_x: "left"
+                TextInput:
+                    size_hint: [0.3, 0.3]
+                    id: password_textbox
+                    multiline: False
+                    readonly: True
+        AnchorLayout:
+            Button:
+                size_hint: [0.9, 0.5]
+                text: "Сгенерировать пароль"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_gen_pass_button_release()
+        AnchorLayout:
+            Button:
+                size_hint: [0.9, 0.5]
+                text: "Назад"
+                font_size: 16
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                on_release:
+                    root.on_back_button_release()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

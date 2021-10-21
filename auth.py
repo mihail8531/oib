@@ -22,6 +22,7 @@ class AppAuth:
         return self.db.get_user_data(username).password_hash == self._get_password_hash(password)
 
     def try_register(self, **kwargs):
+        # noinspection Duplicates
         password = kwargs.get("password")
         if not self._is_valid_password(password):
             raise InvalidPassword()

@@ -1,11 +1,16 @@
+import re
+from math import log, ceil
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 import ffpyplayer
+from kivy.uix.textinput import TextInput
+
 from db_manager import UserData
-from pass_gen import PassGen
+from pass_gen import PassGen, Alphas
 from enum import Enum
 from auth import AppAuth
 from exeptions import *
@@ -154,7 +159,63 @@ class Lab2Main(BoxLayout):
 
 
 class Lab3Screen(LabScreenWidget):
-    pass
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.alphas = set()
+
+    def update_values(self):
+        self.ids.A_textbox.text = str(sum(map(len, self.alphas)))
+        self.ids.S_textbox.text = str(int(int(self.ids.V_textbox.text) * int(self.ids.T_textbox.text) /
+                                          float(self.ids.P_textbox.text)))
+        try:
+            self.ids.L_textbox.text = str(ceil(log(int(self.ids.S_textbox.text)) / log(int(self.ids.A_textbox.text))))
+        except ValueError:
+            self.ids.L_textbox.text = "inf"
+
+    def update_alphas(self):
+        self.alphas = set()
+        if self.ids.eng_alpha.active:
+            self.alphas.add(Alphas.eng_alpha)
+        if self.ids.eng_alpha_upper.active:
+            self.alphas.add(Alphas.eng_alpha_upper)
+        if self.ids.rus_alpha.active:
+            self.alphas.add(Alphas.rus_alpha)
+        if self.ids.rus_alpha_upper.active:
+            self.alphas.add(Alphas.rus_alpha_upper)
+        if self.ids.digits.active:
+            self.alphas.add(Alphas.digits)
+        if self.ids.spec_chars.active:
+            self.alphas.add(Alphas.spec_chars)
+        self.update_values()
+
+    def on_gen_pass_button_release(self):
+        try:
+            if self.ids.A_textbox.text == "0":
+                raise InvalidAlphasSetException()
+        except InvalidAlphasSetException as exception:
+            ErrorPopup(message=str(exception)).open()
+        else:
+            self.ids.password_textbox.text = PassGen.get_rand_pass_lab3(int(self.ids.L_textbox.text), *self.alphas)
+
+
+class IntInput(TextInput):
+    pat = re.compile('[^0-9]')
+
+    def insert_text(self, substring: str, from_undo=False):
+        s = re.sub(self.pat, '', substring)
+        return super(IntInput, self).insert_text(s, from_undo=from_undo)
+
+
+class FloatInput(TextInput):
+    pat = re.compile('[^0-9]')
+
+    def insert_text(self, substring, from_undo=False):
+        pat = self.pat
+        if '.' in self.text:
+            s = re.sub(pat, '', substring)
+        else:
+            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        return super(FloatInput, self).insert_text(s, from_undo=from_undo)
 
 
 class ScreensManager(BoxLayout):
