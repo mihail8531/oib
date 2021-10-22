@@ -15,28 +15,28 @@ class InvalidUsername(RegistrationException):
     _message = 'Имя пользователя должно быть не короче трех символов и содержать только латиницу, кириллицу и "_"'
 
     def __init__(self):
-        super().__init__(InvalidUsername._message)
+        super().__init__(self._message)
 
 
 class InvalidPassword(RegistrationException):
     _message = 'Пароль должн быть не короче девяти символов и содержать только кириллицу (прописные буквы)'
 
     def __init__(self):
-        super().__init__(InvalidPassword._message)
+        super().__init__(self._message)
 
 
 class UserAlreadyExists(RegistrationException):
     _message = 'Пользователь с таким логином уже существует'
 
     def __init__(self):
-        super().__init__(UserAlreadyExists._message)
+        super().__init__(self._message)
 
 
 class InvalidPhoneNumber(RegistrationException):
     _message = 'Номер телефона должен состоять из 11 цифр и начинаться с "+7" или "8"'
 
     def __init__(self):
-        super().__init__(InvalidPhoneNumber._message)
+        super().__init__(self._message)
 
 
 class InvalidFullName(RegistrationException):
@@ -44,21 +44,21 @@ class InvalidFullName(RegistrationException):
                'только латиницу'
 
     def __init__(self):
-        super().__init__(InvalidFullName._message)
+        super().__init__(self._message)
 
 
 class InvalidPasswordChange(RegistrationException):
     _message = "Пароль не может совпадать с отчеством"
 
     def __init__(self):
-        super().__init__(InvalidPasswordChange._message)
+        super().__init__(self._message)
 
 
 class NotLoggedInException(RegistrationException):
     _message = "Вы не можете поменять данные, так как не вошли"
 
     def __init__(self):
-        super().__init__(NotLoggedInException._message)
+        super().__init__(self._message)
 
 
 class PassGeneratorException(LabException):
@@ -70,4 +70,4 @@ class InvalidAlphasSetException(PassGeneratorException):
     _message = "Неправильный набор алфавитов для генерации пароля (должен быть минимум один алфавит)"
 
     def __init__(self):
-        super().__init__(InvalidAlphasSetException._message)
+        super().__init__(self._message)

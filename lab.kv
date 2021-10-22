@@ -34,6 +34,16 @@
             valign: "center"
             on_release:
                 root.on_lab3button_release()
+    AnchorLayout:
+        Button:
+            size_hint: [0.9, 0.5]
+            text: "Лабораторная 4"
+            font_size: 16
+            text_size: self.size
+            halign: "center"
+            valign: "center"
+            on_release:
+                root.on_lab4button_release()
 <Lab1Screen>:
     orientation: "vertical"
     Label:
@@ -815,6 +825,128 @@
                 valign: "center"
                 on_release:
                     root.on_back_button_release()
+<Lab4Screen>:
+    AnchorLayout:
+        BoxLayout:
+            orientation: "vertical"
+            Label:
+                text: "Расчет контрольной суммы"
+                size_hint: [1, 0.2]
+                font_size: 20
+            GridLayout:
+                cols: 3
+                Label:
+                    text: "Текст"
+                    #size_hint: [1, 0.2]
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    font_size: 20
+                Label:
+                    text: "Контрольная сумма"
+                    #size_hint: [1, 0.2]
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    font_size: 20
+                Label:
+                    text: "Контрольная сумма с гаммированием"
+                    #size_hint: [1, 0.2]
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    font_size: 20
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.9, 0.7]
+                        id: p_textbox_1
+                        text: "12121212"
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_textbox_1
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_g_textbox_1
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.9, 0.7]
+                        id: p_textbox_2
+                        text: "21212121"
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_textbox_2
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_g_textbox_2
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.9, 0.7]
+                        id: p_textbox_3
+                        text: "90000009"
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_textbox_3
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_g_textbox_3
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.9, 0.7]
+                        id: p_textbox_4
+                        text: "99000000"
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_textbox_4
+                        multiline: False
+                        readonly: True
+                AnchorLayout:
+                    TextInput:
+                        size_hint: [0.6, 0.3]
+                        id: c_sum_g_textbox_4
+                        multiline: False
+                        readonly: True
+            AnchorLayout:
+                size_hint: [1, 0.1]
+                Button:
+                    size_hint: [0.4, 0.8]
+                    text: "Рассчитать контрольные суммы"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_calc_checksums_button_release()
+            AnchorLayout:
+                size_hint: [1, 0.1]
+                Button:
+                    size_hint: [0.4, 0.8]
+                    text: "Назад"
+                    font_size: 16
+                    text_size: self.size
+                    halign: "center"
+                    valign: "center"
+                    on_release:
+                        root.on_back_button_release()
+
 
 
 

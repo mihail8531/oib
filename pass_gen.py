@@ -15,7 +15,6 @@ class Alphas:
     eng_alpha_upper = ascii_uppercase
     digits = digits
     spec_chars = "!”#$%&’()*"
-    alphas_count = 6
 
 
 class PassGen:

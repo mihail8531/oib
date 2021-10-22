@@ -9,6 +9,7 @@ from kivy.uix.popup import Popup
 import ffpyplayer
 from kivy.uix.textinput import TextInput
 
+from checksum import Checksum
 from db_manager import UserData
 from pass_gen import PassGen, Alphas
 from enum import Enum
@@ -27,6 +28,7 @@ class ScrnType(Enum):
     LAB2_MAIN = 5
     LAB2_CHANGE = 6
     LAB3_SCREEN = 7
+    LAB4_SCREEN = 8
 
 
 class StartScreen(BoxLayout):
@@ -41,6 +43,10 @@ class StartScreen(BoxLayout):
     @staticmethod
     def on_lab3button_release():
         screens_manager.switch_screen(ScrnType.LAB3_SCREEN)
+
+    @staticmethod
+    def on_lab4button_release():
+        screens_manager.switch_screen(ScrnType.LAB4_SCREEN)
 
 
 class LabScreenWidget(BoxLayout):
@@ -198,6 +204,15 @@ class Lab3Screen(LabScreenWidget):
             self.ids.password_textbox.text = PassGen.get_rand_pass_lab3(int(self.ids.L_textbox.text), *self.alphas)
 
 
+class Lab4Screen(LabScreenWidget):
+    def on_calc_checksums_button_release(self):
+        texts = [self.ids[f"p_textbox_{i + 1}"].text for i in range(4)]
+        for i, text in enumerate(texts):
+            self.ids[f"c_sum_textbox_{i + 1}"].text = str(Checksum.checksum(texts[i], 255))
+            self.ids[f"c_sum_g_textbox_{i + 1}"].text = str(Checksum.checksum_gamma(texts[i], 51, 13, 256, 102, 255))
+
+
+
 class IntInput(TextInput):
     pat = re.compile('[^0-9]')
 
@@ -209,7 +224,7 @@ class IntInput(TextInput):
 class FloatInput(TextInput):
     pat = re.compile('[^0-9]')
 
-    def insert_text(self, substring, from_undo=False):
+    def insert_text(self, substring: str, from_undo=False):
         pat = self.pat
         if '.' in self.text:
             s = re.sub(pat, '', substring)
@@ -230,6 +245,7 @@ class ScreensManager(BoxLayout):
         self.screens[ScrnType.LAB2_MAIN] = Lab2Main()
         self.screens[ScrnType.LAB2_CHANGE] = Lab2Change()
         self.screens[ScrnType.LAB3_SCREEN] = Lab3Screen()
+        self.screens[ScrnType.LAB4_SCREEN] = Lab4Screen()
         # ...
         self.add_widget(self.screens[ScrnType.START_SCREEN])
 
