@@ -171,8 +171,14 @@ class Lab3Screen(LabScreenWidget):
 
     def update_values(self):
         self.ids.A_textbox.text = str(sum(map(len, self.alphas)))
-        self.ids.S_textbox.text = str(int(int(self.ids.V_textbox.text) * int(self.ids.T_textbox.text) /
-                                          float(self.ids.P_textbox.text)))
+        try:
+            self.ids.S_textbox.text = str(int(int(self.ids.V_textbox.text) * int(self.ids.T_textbox.text) /
+                                              float(self.ids.P_textbox.text)))
+        except ZeroDivisionError:
+            self.ids.S_textbox.text = "inf"
+        except ValueError:
+            self.ids.S_textbox.text = "inf"
+
         try:
             self.ids.L_textbox.text = str(ceil(log(int(self.ids.S_textbox.text)) / log(int(self.ids.A_textbox.text))))
         except ValueError:
@@ -210,7 +216,6 @@ class Lab4Screen(LabScreenWidget):
         for i, text in enumerate(texts):
             self.ids[f"c_sum_textbox_{i + 1}"].text = str(Checksum.checksum(texts[i], 255))
             self.ids[f"c_sum_g_textbox_{i + 1}"].text = str(Checksum.checksum_gamma(texts[i], 51, 13, 256, 102, 255))
-
 
 
 class IntInput(TextInput):
